@@ -6,7 +6,8 @@ import rateLimit from 'express-rate-limit';
 import cors from 'cors';
 import morgan from 'morgan';
 import userRoute from './src/routes/userRoute';
-import { error } from 'console';
+import { errorHandler } from './src/middleware/errors';
+import roleRoute from './src/routes/roleRoute';
 
 dotenv.config();
 
@@ -33,6 +34,9 @@ app.use(
 );
 
 app.use('/api/v1/user', userRoute);
+app.use('/api/v1/role', roleRoute);
+
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`User server at http://localhost:${port}`);
